@@ -1,8 +1,11 @@
+# Exploratory Data Analysis
+# Course Project 1
 
+# A common data retrieval and formatting service.
 
 get_data <- function() {
   # read in all data
-  data_all <- read.table("household_power_consumption.txt", header=T, sep=";",
+  data_all <- read.table("../../04 Exploratory Data Analysis/Project 1/household_power_consumption.txt", header=T, sep=";",
                          stringsAsFactors=FALSE, na.strings="?")
   
   # extract the subset of data to be used for plotting
@@ -10,8 +13,9 @@ get_data <- function() {
   data <- data_all[target_row,]
   
   # convert column formats
+  newtime <- paste(data$Date, data$Time)
   data$Date <- as.Date(data$Date, format="%d/%m/%Y")
-  data$Time <- strptime(data$Time, "%H:%M:%S")
+  data$Time <- strptime(newtime, "%d/%m/%Y %H:%M:%S")
   data$Global_active_power <- as.numeric(data$Global_active_power)
   data$Global_reactive_power <- as.numeric(data$Global_reactive_power)
   data$Voltage <- as.numeric(data$Voltage)
